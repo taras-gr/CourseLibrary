@@ -30,12 +30,14 @@ namespace CourseLibraryAPI.Controllers
 
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(
+        public PagedList<Author> GetAuthors(
             [FromQuery]AuthorsResourceParameters authorsResourceParameters)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors(authorsResourceParameters);
+            //var authorsFromRepo = _courseLibraryRepository.GetAuthors(authorsResourceParameters);
+            var items = _courseLibraryRepository.GetAuthors(authorsResourceParameters);
+            return items;
 
-            return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
+            //return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
 
         [HttpGet("{authorId}", Name = "GetAuthor")]
