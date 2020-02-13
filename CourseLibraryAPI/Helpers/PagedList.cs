@@ -6,20 +6,13 @@ using Newtonsoft.Json;
 
 namespace CourseLibraryAPI.Helpers
 {
-    [JsonObject]
     public class PagedList<T> : List<T>
     {
-        [JsonProperty]
-        public int CurrentPage { get; private set; }
-        [JsonProperty]
+        public int CurrentPage { get; private set; }        
         public int TotalPages { get; private set; }
-        [JsonProperty]
         public int PageSize { get; private set; }
-        [JsonProperty]
         public int TotalCount { get; private set; }
-        [JsonProperty]
         public bool HasPrevious => (CurrentPage > 1);
-        [JsonProperty]
         public bool HasNext => (CurrentPage < TotalPages);
 
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
