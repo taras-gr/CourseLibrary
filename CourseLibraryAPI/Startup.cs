@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Services;
@@ -59,6 +60,17 @@ namespace CourseLibrary.API
                         };
                     };
                 });
+
+            services.Configure<MvcOptions>(config =>
+            {
+                var newtonsoftJsonOutputFormatter = config.OutputFormatters
+                        .OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
+
+                if (newtonsoftJsonOutputFormatter != null)
+                {
+                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.hateoas+json");
+                }
+            });
 
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
 
